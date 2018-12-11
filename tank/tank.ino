@@ -3,28 +3,28 @@
 const int In1 = 5;
 const int In2 = 6;
 const int In3 = 3;
-const int In4 = 11;
+const int In4 = 4;
 
 const int RX_PIN = 9;
 const int TX_PIN = 8;
 
 SoftwareSerial bluetooth(RX_PIN, TX_PIN);
 
-void forward() {
+void tbackward   () {
   digitalWrite(In1, LOW);
   digitalWrite(In2, HIGH);
+  digitalWrite(In3, HIGH);
+  digitalWrite(In4, LOW);
+}
+
+void tforward() {
+  digitalWrite(In1, HIGH);
+  digitalWrite(In2, LOW);
   digitalWrite(In3, LOW);
   digitalWrite(In4, HIGH);
 }
 
-void backward() {
-  digitalWrite(In4, LOW);
-  digitalWrite(In3, HIGH);
-  digitalWrite(In2, LOW);
-  digitalWrite(In1, HIGH);
-}
-
-void stop() {
+void tstop() {
   digitalWrite(In1, LOW);
   digitalWrite(In2, LOW);
   digitalWrite(In3, LOW);
@@ -55,5 +55,9 @@ void loop() {
   if (Serial.available()) {
     bluetooth.write(Serial.read());
   }
+  tforward();
+  delay(800);
+  tstop();
+  delay(200);
 }
 
